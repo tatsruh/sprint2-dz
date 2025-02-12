@@ -10,7 +10,7 @@ function HW11() {
     const [value2, setValue2] = useState(restoreState<number>('hw11-value2', 100));
 
     // Handle slider value changes
-    const change = (event: Event, value: number | number[], activeThumb: number) => {
+    const change = (value: number | number[]) => {
         if (typeof value === 'number') {
             setValue1(value);
         } else if (Array.isArray(value)) {
@@ -32,10 +32,8 @@ function HW11() {
                         <SuperRange
                             id={'hw11-single-slider'}
                             value={value1}
-                            onChange={(event: Event, value: number | number[], activeThumb: number) => {
-                                const target = event.target as HTMLInputElement; // Explicitly cast
-                                change(event, parseFloat(target.value), activeThumb);
-                            }}                        />
+                            onChange={(event, value) => change(value)}
+                        />
                     </div>
 
                     {/* Double Slider */}
@@ -46,10 +44,8 @@ function HW11() {
                         <SuperRange
                             id={'hw11-double-slider'}
                             value={[value1, value2]}
-                            onChange={(event: Event, value: number | number[], activeThumb: number) => {
-                                const target = event.target as HTMLInputElement; // Explicitly cast
-                                change(event, parseFloat(target.value), activeThumb);
-                            }}                            />
+                            onChange={(event, value) => change(value)}
+                        />
                         <span id={'hw11-value-2'} className={s.number}>
                             {value2}
                         </span>
