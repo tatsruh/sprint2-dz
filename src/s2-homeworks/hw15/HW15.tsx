@@ -51,29 +51,41 @@ const HW15 = () => {
         setLoading(true)
         getTechs(params)
             .then((res) => {
-                // делает студент
+                if (res) {
+                    setTechs(res.data?.techs)
+                }
+                setLoading(false)
 
-                // сохранить пришедшие данные
-
-                //
             })
     }
 
     const onChangePagination = (newPage: number, newCount: number) => {
         // делает студент
-
-        // setPage(
-        // setCount(
-
-        // sendQuery(
-        // setSearchParams(
-
-        //
+        setPage(newPage)
+        setCount(newCount)
+        const params = new URLSearchParams();
+        params.set("page", newPage.toString());
+        params.set("count", newCount.toString());
+        setSearchParams(params, {
+            preventScrollReset: true,
+        });
+        sendQuery(params)
+     console.log(params)
     }
 
     const onChangeSort = (newSort: string) => {
         // делает студент
 
+        setPage(1)
+        setSort(newSort)
+        console.log(newSort)
+        const params = new URLSearchParams();
+
+        params.set("sort", newSort);
+        setSearchParams(params, {
+            preventScrollReset: true,
+        });
+        sendQuery(params)
         // setSort(
         // setPage(1) // при сортировке сбрасывать на 1 страницу
 
